@@ -1,4 +1,4 @@
-#COPY THIS WHOLE THING, PASTE ON TERMINAL & CLICK ENTER
+#COPY THIS WHOLE THING, PASTE IT ON SSH TERMINAL & CLICK ENTER
 
 echo -e "\n\e[1;31m====================================================\e[0m"
 echo -e "\e[1;33m        Uninstalling Jellyfin & Copyparty...        \e[0m"
