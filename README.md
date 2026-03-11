@@ -1,3 +1,5 @@
+![Dashboard](Photos/Dashboard.png)
+
 **INSTRUCTIONS**
 
 Download & install Termux from F-Droid - 
