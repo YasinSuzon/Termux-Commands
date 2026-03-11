@@ -47,7 +47,7 @@ source ~/.bashrc
 echo -e "\e[1;32mStarting services for the first time...\e[0m"
 nohup bash ~/.termux/boot/start-services.sh > /dev/null 2>&1 &
 sleep 5
-MY_IP=\$(ip route get 1.1.1.1 2>/dev/null | grep -oP 'src \K\S+')
+MY_IP=$(ip route get 1.1.1.1 2>/dev/null | grep -oP 'src \K\S+')
 [ -z "\$MY_IP" ] && MY_IP="127.0.0.1"
 
 echo -e "\n\e[1;32m✅ Setup Complete & Apps are now RUNNING\!\e[0m"
