@@ -1,3 +1,5 @@
+#COPY THIS WHOLE THING, PASTE ON TERMINAL & CLICK ENTER
+
 echo -e "\n\e[1;36m====================================================\e[0m"
 echo -e "\e[1;33m  One click install of Jellyfin & Copyparty is starting  \e[0m"
 echo -e "\e[1;36m====================================================\e[0m\n"
