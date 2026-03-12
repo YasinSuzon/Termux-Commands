@@ -1,13 +1,13 @@
-Change this line on install command
+# This default command will show your phone storage as ROOT folder
 
 python3 -m copyparty -v /storage/emulated/0:/root:rwadm,admin -a admin:password -e2dsa &
 EOF
 
-TO this (replace with your SD card)
+# Changing to your SD card name with make SD card as ROOT folder
 
 python3 -m copyparty -v /storage/01DCB14D28524270:/root:rwadm,admin -a admin:password -e2dsa &
 EOF
 
-To find your SD Card name, use this command
+# To find your SD Card name, use this command
 
 df -h | grep /storage
