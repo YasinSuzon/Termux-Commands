@@ -1,0 +1,10 @@
+Change this line on install command
+
+python3 -m copyparty -v /storage/emulated/0:/root:rwadm,admin -a admin:password -e2dsa &
+EOF
+
+TO this (replace with your SD card name shown in X-plore app)
+
+python3 -m copyparty -v /storage/01DCB14D28524270:/root:rwadm,admin -a admin:password -e2dsa &
+EOF
+
