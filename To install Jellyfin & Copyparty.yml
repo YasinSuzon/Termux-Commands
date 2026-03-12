@@ -14,15 +14,10 @@ pkg install python python-pip iproute2 procps nano wget tar ffmpeg -y
 echo "y" | termux-setup-storage
 
 # 4. Install Copyparty
-pip install --upgrade pip
 pip install copyparty
 
-# 5. Download Jellyfin portable build (arm64)
-mkdir -p ~/jellyfin
-cd ~/jellyfin
-wget https://repo.jellyfin.org/releases/server/portable/latest/jellyfin-portable_arm64.tar.gz -O jellyfin.tar.gz
-tar -xvzf jellyfin.tar.gz
-rm jellyfin.tar.gz
+# 5. Install Jellyfin (native Termux package)
+pkg install jellyfin-server -y
 
 # 6. Create boot script
 mkdir -p ~/.termux/boot
@@ -31,12 +26,15 @@ cat <<EOF > ~/.termux/boot/start-services.sh
 termux-wake-lock
 pkill -9 -f "jellyfin|copyparty"
 sleep 2
-# Start Jellyfin
-DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1 \
-dotnet \$HOME/jellyfin/jellyfin.dll --ffmpeg \$(which ffmpeg) &
+# Start Jellyfin (hidden, stable on mobile)
+export DOTNET_ROOT=/data/data/com.termux/files/usr/lib/dotnet
+export PATH=\$DOTNET_ROOT:\$PATH
+export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
+export DOTNET_GCHeapHardLimit=500000000
+nohup jellyfin > /dev/null 2>&1 &
 sleep 15
 # Start Copyparty
-python3 -m copyparty -v /storage/emulated/0:/root:rwadm,admin -a admin:password -e2dsa &
+nohup python3 -m copyparty -v /storage/emulated/0:/root:rwadm,admin -a admin:password -e2dsa > /dev/null 2>&1 &
 EOF
 
 chmod +x ~/.termux/boot/start-services.sh
@@ -55,12 +53,12 @@ EOF
 source ~/.bashrc
 nohup bash ~/.termux/boot/start-services.sh > /dev/null 2>&1 &
 sleep 5
-MY_IP=$(ip route get 1.1.1.1 2>/dev/null | grep -oP 'src \K\S+')
-[ -z "$MY_IP" ] && MY_IP="127.0.0.1"
+MY_IP=\$(ip route get 1.1.1.1 2>/dev/null | grep -oP 'src \K\S+')
+[ -z "\$MY_IP" ] && MY_IP="127.0.0.1"
 
 echo -e "\n\e[1;32m✅ Setup Complete & Apps are now RUNNING!\e[0m"
 echo -e "\n\e[1;34mAccess your apps here:\e[0m"
-echo -e "\e[1;37mJellyfin:  http://$MY_IP:8096\e[0m"
-echo -e "\e[1;37mCopyparty: http://$MY_IP:3923 (Login: admin / Password: password)\e[0m"
+echo -e "\e[1;37mJellyfin:  http://\$MY_IP:8096\e[0m"
+echo -e "\e[1;37mCopyparty: http://\$MY_IP:3923 (Login: admin / Password: password)\e[0m"
 echo -e "\n\e[1;33mCommands to remember:\e[0m"
 echo -e "\e[1;37m'up' to start | 'down' to stop | 'status' to check\e[0m\n"
