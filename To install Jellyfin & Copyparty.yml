@@ -34,7 +34,7 @@ export DOTNET_GCHeapHardLimit=500000000
 nohup jellyfin > /dev/null 2>&1 &
 sleep 15
 # Start Copyparty
-nohup python3 -m copyparty -v /storage/emulated/0:/root:rwadm,admin -a admin:password -e2dsa > /dev/null 2>&1 &
+nohup python3 -m copyparty -v /storage/emulated/0:/phone:rwadm,admin -a admin:password -e2dsa > /dev/null 2>&1 &
 EOF
 
 chmod +x ~/.termux/boot/start-services.sh
